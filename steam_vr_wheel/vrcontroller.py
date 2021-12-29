@@ -1,4 +1,5 @@
 import math
+#import quaternionic
 
 import openvr
 import sys
@@ -19,6 +20,8 @@ class Controller:
         self.name = name
         self.trackpadX = 0
         self.trackpadY = 0
+        self.rotquat = [1.0,0.0,0.0,0.0]
+        #self.rotquat = quaternionic.array(1.0,0.0,0.0,0.0)
 
     def update(self, pose):
         vrsys = openvr.VRSystem()
@@ -29,6 +32,21 @@ class Controller:
         self.z = pose.mDeviceToAbsoluteTracking[2][3]
 
         pose_mat = pose.mDeviceToAbsoluteTracking
+        self.rotquat[0] = math.sqrt(max(0, 1 + pose_mat[0][0] + pose_mat[1][1] + pose_mat[2][2])) / 2
+        self.rotquat[1] = math.sqrt(max(0, 1 + pose_mat[0][0] - pose_mat[1][1] - pose_mat[2][2])) / 2
+        self.rotquat[2] = math.sqrt(max(0, 1 - pose_mat[0][0] + pose_mat[1][1] - pose_mat[2][2])) / 2
+        self.rotquat[3] = math.sqrt(max(0, 1 - pose_mat[0][0] - pose_mat[1][1] + pose_mat[2][2])) / 2
+        self.rotquat[1] = math.copysign(self.rotquat[1], pose_mat[2][1] - pose_mat[1][2])
+        self.rotquat[2] = math.copysign(self.rotquat[2], pose_mat[0][2] - pose_mat[2][0])
+        self.rotquat[3] = math.copysign(self.rotquat[3], pose_mat[1][0] - pose_mat[0][1])
+
+        #can't get quats to work
+        # ControllerEuler = self.rotquat.to_euler_angles
+        # self.pitch = ControllerEuler.x
+        # self.yaw = ControllerEuler.y
+        # self.roll = ControllerEuler.z
+        #end of unused
+
         try:
             self.yaw = 180 / math.pi * math.atan(pose_mat[1][0] / pose_mat[0][0])
         except ZeroDivisionError:

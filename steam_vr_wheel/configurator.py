@@ -19,6 +19,7 @@ class ConfiguratorApp:
         self.touchpad_always_updates_box = wx.CheckBox(self.pnl, label='Touchpad mapping to axis while untouched (axis move to center when released)')
         self.vertical_wheel_box = wx.CheckBox(self.pnl, label='Steering wheel is vertical')
         self.joystick_updates_only_when_grabbed_box = wx.CheckBox(self.pnl, label='Joystick moves only when grabbed (by right grip)')
+        self.joystick_resets_to_center_when_ungrabbed_box = wx.CheckBox(self.pnl, label='Joystick moves to center when the grip is let go')
         self.joystick_grabbing_switch_box = wx.CheckBox(self.pnl, label='Joystick grab is a switch')
         self.edit_mode_box = wx.CheckBox(self.pnl, label='Layout edit mode')
         self.wheel_grabbed_by_grip_box = wx.CheckBox(self.pnl, label='Manual wheel grabbing')
@@ -35,6 +36,7 @@ class ConfiguratorApp:
         self.touchpad_always_updates_box.Bind(wx.EVT_CHECKBOX, self.config_change)
         self.vertical_wheel_box.Bind(wx.EVT_CHECKBOX, self.config_change)
         self.joystick_updates_only_when_grabbed_box.Bind(wx.EVT_CHECKBOX, self.config_change)
+        self.joystick_resets_to_center_when_ungrabbed_box.Bind(wx.EVT_CHECKBOX, self.config_change)
         self.joystick_grabbing_switch_box.Bind(wx.EVT_CHECKBOX, self.config_change)
         self.edit_mode_box.Bind(wx.EVT_CHECKBOX, self.config_change)
         self.wheel_grabbed_by_grip_box.Bind(wx.EVT_CHECKBOX, self.config_change)
@@ -51,6 +53,7 @@ class ConfiguratorApp:
                                 touchpad_always_updates=self.touchpad_always_updates_box,
                                 vertical_wheel=self.vertical_wheel_box,
                                 joystick_updates_only_when_grabbed=self.joystick_updates_only_when_grabbed_box,
+                                joystick_resets_to_center_when_ungrabbed=self.joystick_resets_to_center_when_ungrabbed_box,
                                 joystick_grabbing_switch=self.joystick_grabbing_switch_box,
                                 edit_mode=self.edit_mode_box,
                                 wheel_grabbed_by_grip=self.wheel_grabbed_by_grip_box,
@@ -68,6 +71,7 @@ class ConfiguratorApp:
         self.vbox.Add(self.touchpad_always_updates_box)
         self.vbox.Add(self.vertical_wheel_box)
         self.vbox.Add(self.joystick_updates_only_when_grabbed_box)
+        self.vbox.Add(self.joystick_resets_to_center_when_ungrabbed_box)
         self.vbox.Add(self.joystick_grabbing_switch_box)
         self.vbox.Add(self.edit_mode_box)
         self.vbox.Add(self.wheel_grabbed_by_grip_box)

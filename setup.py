@@ -23,10 +23,9 @@ setup(
     license='MIT',
 
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),
-
-    #install_requires=['openvr==1.0.301', 'numpy'],
-    install_requires=['openvr', 'numpy',  'wxPython==4.0.0a3' ],
-
+    
+    install_requires=['openvr==1.0.0701', 'numpy',  'wxPython==4.0.0a3' ],
+    # my openvr is modified to force it to find openvr dlls search '# MODIFIED' in __init__.py
 
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these

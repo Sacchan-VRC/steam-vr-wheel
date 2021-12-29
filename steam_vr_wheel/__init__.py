@@ -12,7 +12,7 @@ else:
 
 DEFAULT_CONFIG = dict(trigger_pre_press_button=True, trigger_press_button=True, multibutton_trackpad=True,
                       multibutton_trackpad_center_haptic=True, touchpad_always_updates=True, vertical_wheel=True,
-                      joystick_updates_only_when_grabbed=False, joystick_grabbing_switch=False, edit_mode=False,
+                      joystick_updates_only_when_grabbed=False, joystick_resets_to_center_when_ungrabbed=True, joystick_grabbing_switch=False, edit_mode=False,
                       wheel_center=[0, -0.4, -0.35], wheel_size=0.55, wheel_grabbed_by_grip=True,
                       wheel_grabbed_by_grip_toggle=True, wheel_show_wheel=True, wheel_show_hands=True,
                       wheel_degrees=1440, wheel_centerforce=3)
@@ -156,6 +156,17 @@ class PadConfig:
     def joystick_updates_only_when_grabbed(self, x: bool):
         with self.data_lock:
             self._data['joystick_updates_only_when_grabbed'] = x
+        self._write()
+
+    @property
+    def joystick_resets_to_center_when_ungrabbed(self):
+        with self.data_lock:
+            return self._data['joystick_resets_to_center_when_ungrabbed']
+
+    @joystick_resets_to_center_when_ungrabbed.setter
+    def joystick_resets_to_center_when_ungrabbed(self, x: bool):
+        with self.data_lock:
+            self._data['joystick_resets_to_center_when_ungrabbed'] = x
         self._write()
 
     @property

@@ -1,4 +1,4 @@
-from .wheel import main
+from steam_vr_wheel.wheel import main
 
 def main_j():
     main(type='joystick')
